@@ -81,6 +81,13 @@
       "dir": null,
       "ref": "main",
       "url": "https://github.com/kittycathy233/linc_luajit"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/MAJigsaw77/extension-androidtools"
     }
   ]
 }

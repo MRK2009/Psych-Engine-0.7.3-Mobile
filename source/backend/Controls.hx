@@ -94,7 +94,7 @@ class Controls
 		var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
 		if(result) controllerMode = false;
 
-		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadJustPressed(gamepadBinds[key]) == true || hitboxJustPressed(mobileBinds[key]) == true || mobilePadJustPressed(mobileBinds[key]) == true;
 	}
 
 	public function pressed(key:String)
@@ -102,7 +102,7 @@ class Controls
 		var result:Bool = (FlxG.keys.anyPressed(keyboardBinds[key]) == true);
 		if(result) controllerMode = false;
 
-		return result || _myGamepadPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadPressed(gamepadBinds[key]) == true || hitboxPressed(mobileBinds[key]) == true || mobilePadPressed(mobileBinds[key]) == true;
 	}
 
 	public function justReleased(key:String)
@@ -110,7 +110,7 @@ class Controls
 		var result:Bool = (FlxG.keys.anyJustReleased(keyboardBinds[key]) == true);
 		if(result) controllerMode = false;
 
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true;
+		return result || _myGamepadJustReleased(gamepadBinds[key]) == true || hitboxJustReleased(mobileBinds[key]) == true || mobilePadJustReleased(mobileBinds[key]) == true;
 	}
 
 	public var controllerMode:Bool = false;
@@ -158,6 +158,79 @@ class Controls
 			}
 		}
 		return false;
+	}
+
+	public var isInSubstate:Bool = false; // don't worry about this it becomes true and false on it's own in MusicBeatSubstate
+	public var requestedInstance(get, default):Dynamic; // is set to MusicBeatState or MusicBeatSubstate when the constructor is called
+	public var requestedHitbox(get, default):FunkinHitbox; // for PlayState and EditorPlayState
+
+	private function mobilePadPressed(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedInstance.virtualPad != null)
+			if (requestedInstance.virtualPad.anyPressed(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	private function mobilePadJustPressed(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedInstance.virtualPad != null)
+			if (requestedInstance.virtualPad.anyJustPressed(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	private function mobilePadJustReleased(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedInstance.virtualPad != null)
+			if (requestedInstance.virtualPad.anyJustReleased(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	private function hitboxPressed(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedHitbox != null)
+			if (requestedHitbox.anyPressed(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	private function hitboxJustPressed(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedHitbox != null)
+			if (requestedHitbox.anyJustPressed(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	private function hitboxJustReleased(keys:Array<FlxMobileInputID>):Bool
+	{
+		if (keys != null && requestedHitbox != null)
+			if (requestedHitbox.anyJustReleased(keys) == true)
+				return true;
+
+		return false;
+	}
+
+	@:noCompletion
+	private function get_requestedInstance():Dynamic
+	{
+		if (isInSubstate)
+			return MusicBeatSubstate.instance;
+		else
+			return MusicBeatState.getState();
+	}
+
+	@:noCompletion
+	private function get_requestedHitbox():Dynamic
+	{
+		return MusicBeatState.instance.mobileHitbox.target;
 	}
 
 	// IGNORE THESE

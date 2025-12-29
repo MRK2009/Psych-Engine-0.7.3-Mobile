@@ -55,63 +55,63 @@ class MobileVirtualPad extends FlxMobileInputManager {
 
   public function new(DPad:MobileDPadMode, Action:MobileActionMode) {
 
-  super();
-		for (button in Reflect.fields(this)) {
+    super();
+	   for (button in Reflect.fields(this)) {
 			if (Std.isOfType(Reflect.field(this, button), FlxButton))
 				storedButtonsIDs.set(button, Reflect.getProperty(Reflect.field(this, button), 'IDs'));
-    }
+       }
 
-    switch (DPad) {
+        switch (DPad) {
 			case UP_DOWN:
-				add(buttonUp = createButton(0, FlxG.height - 255, 'up', 0x00FF00));
-				add(buttonDown = createButton(0, FlxG.height - 135, 'down', 0x00FFFF));
+				add(buttonUp = createButton(0, FlxG.height - 255, 'up'));
+				add(buttonDown = createButton(0, FlxG.height - 135, 'down'));
 			case LEFT_RIGHT:
-				add(buttonLeft = createButton(0, FlxG.height - 135, 'left', 0xFF00FF));
-				add(buttonRight = createButton(127, FlxG.height - 135, 'right', 0xFF0000));
+				add(buttonLeft = createButton(0, FlxG.height - 135, 'left'));
+				add(buttonRight = createButton(127, FlxG.height - 135, 'right'));
 			case UP_LEFT_RIGHT:
-				add(buttonUp = createButton(105, FlxG.height - 243, 'up', 0x00FF00));
-				add(buttonLeft = createButton(0, FlxG.height - 135, 'left', 0xFF00FF));
-				add(buttonRight = createButton(207, FlxG.height - 135, 'right', 0xFF0000));
+				add(buttonUp = createButton(105, FlxG.height - 243, 'up'));
+				add(buttonLeft = createButton(0, FlxG.height - 135, 'left'));
+				add(buttonRight = createButton(207, FlxG.height - 135, 'right'));
 			case LEFT_FULL:
-				add(buttonUp = createButton(105, FlxG.height - 345, 'up', 0x00FF00));
-				add(buttonLeft = createButton(0, FlxG.height - 243, 'left', 0xFF00FF));
-				add(buttonRight = createButton(207, FlxG.height - 243, 'right', 0xFF0000));
-				add(buttonDown = createButton(105, FlxG.height - 135, 'down', 0x00FFFF));
+				add(buttonUp = createButton(105, FlxG.height - 345, 'up'));
+				add(buttonLeft = createButton(0, FlxG.height - 243, 'left'));
+				add(buttonRight = createButton(207, FlxG.height - 243, 'right'));
+				add(buttonDown = createButton(105, FlxG.height - 135, 'down'));
 			case RIGHT_FULL:
-				add(buttonUp = createButton(FlxG.width - 258, FlxG.height - 408, 'up', 0x00FF00));
-				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 309, 'left', 0xFF00FF));
-				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 309, 'right', 0xFF0000));
-				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 201, 'down', 0x00FFFF));
+				add(buttonUp = createButton(FlxG.width - 258, FlxG.height - 408, 'up'));
+				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 309, 'left'));
+				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 309, 'right'));
+				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 201, 'down'));
 			case NONE:
-        // Nothing like my bank account
+                // Nothing like my bank account
 		}
 
 		switch (Action) {
 			case A:
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
+				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a'));
 			case B:
-				add(buttonB = createButton(FlxG.width - 132, FlxG.height - 135, 'b', 0xFFCB00));
-		  case C:
-				add(buttonC = createButton(FlxG.width - 132, FlxG.height - 135, 'c', 0x44FF00));
+				add(buttonB = createButton(FlxG.width - 132, FlxG.height - 135, 'b'));
+		    case C:
+				add(buttonC = createButton(FlxG.width - 132, FlxG.height - 135, 'c'));
 			case A_B:
-				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
+				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b'));
+				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a'));
 			case A_B_C:
-				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c', 0x44FF00));
-				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b', 0xFFCB00));
-				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
+				add(buttonC = createButton(FlxG.width - 384, FlxG.height - 135, 'c'));
+				add(buttonB = createButton(FlxG.width - 258, FlxG.height - 135, 'b'));
+				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a'));
 			case NONE:
-        // Nothing.. like... absolutely nothing
+                // Nothing.. like... absolutely nothing
     }
   
-  for (button in Reflect.fields(this)) {
+       for (button in Reflect.fields(this)) {
 			if (Std.isOfType(Reflect.field(this, button), FlxButton))
 				Reflect.setProperty(Reflect.getProperty(this, button), 'IDs', storedButtonsIDs.get(button));
-    }
-  updateTrackedButtons();
+       }
+     updateTrackedButtons();
 }
 
-  /**
+    /**
 	 * For those with a bad phone-
 	 */
 	override public function destroy():Void

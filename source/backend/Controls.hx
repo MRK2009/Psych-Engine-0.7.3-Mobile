@@ -230,7 +230,7 @@ class Controls
 	@:noCompletion
 	private function get_requestedHitbox():Dynamic
 	{
-		return MusicBeatState.instance.mobileHitbox.target;
+		return MusicBeatState.instance.mobileHitbox;
 	}
 
 	// IGNORE THESE

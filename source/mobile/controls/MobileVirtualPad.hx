@@ -55,7 +55,7 @@ class MobileVirtualPad extends FlxMobileInputManager {
 
 	var storedButtonsIDs:Map<String, Array<FlxMobileInputID>> = new Map<String, Array<FlxMobileInputID>>();
 
-  public function new(DPad:MobileDPadMode, Action:MobileActionMode) {
+    public function new(DPad:MobileDPadMode, Action:MobileActionMode) {
 
     super();
 	   for (button in Reflect.fields(this)) {
@@ -133,8 +133,8 @@ class MobileVirtualPad extends FlxMobileInputManager {
    
 		var graphic:FlxGraphic;
 	  
-		if (Assets.exists('assets/mobile/virtualpad/${Graphic}.png'))
-			graphic = FlxG.bitmap.add('assets/mobile/virtualpad/${Graphic}.png');
+		if (Assets.exists('assets/mobile/virtualpad/' + Graphic + '.png'))
+			graphic = FlxG.bitmap.add('assets/mobile/virtualpad/' + Graphic + '.png');
 		else
 			graphic = FlxG.bitmap.add('assets/mobile/virtualpad/default.png');
 

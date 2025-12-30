@@ -8,6 +8,12 @@ import mobile.input.FlxMobileInputID;
 import flixel.input.gamepad.mappings.FlxGamepadMapping;
 import flixel.input.keyboard.FlxKey;
 
+typedef MobileInputDevice = {
+    function anyPressed(keys:Array<FlxMobileInputID>):Bool;
+    function anyJustPressed(keys:Array<FlxMobileInputID>):Bool;
+    function anyJustReleased(keys:Array<FlxMobileInputID>):Bool;
+}
+
 class Controls
 {
 	//Keeping same use cases on stuff for it to be easier to understand/use
@@ -159,12 +165,6 @@ class Controls
 		}
 		return false;
 	}
-
-typedef MobileInputDevice = {
-    function anyPressed(keys:Array<FlxMobileInputID>):Bool;
-    function anyJustPressed(keys:Array<FlxMobileInputID>):Bool;
-    function anyJustReleased(keys:Array<FlxMobileInputID>):Bool;
-}
 
 public var isInSubstate:Bool = false;
 

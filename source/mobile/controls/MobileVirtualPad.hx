@@ -120,6 +120,7 @@ class MobileVirtualPad extends FlxMobileInputManager {
 		scrollFactor.set();
 		updateTrackedButtons();
 	}
+}
 
     /**
 	 * For those with a bad phone-

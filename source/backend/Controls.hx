@@ -160,78 +160,53 @@ class Controls
 		return false;
 	}
 
-	public var isInSubstate:Bool = false; // don't worry about this it becomes true and false on it's own in MusicBeatSubstate
-	public var requestedInstance(get, default):Dynamic; // is set to MusicBeatState or MusicBeatSubstate when the constructor is called
-	public var requestedHitbox(get, default):Dynamic; // for PlayState and EditorPlayState
+typedef MobileInputDevice = {
+    function anyPressed(keys:Array<FlxMobileInputID>):Bool;
+    function anyJustPressed(keys:Array<FlxMobileInputID>):Bool;
+    function anyJustReleased(keys:Array<FlxMobileInputID>):Bool;
+}
 
-	private function mobilePadPressed(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedInstance.virtualPad != null)
-			if (requestedInstance.virtualPad.anyPressed(keys) == true)
-				return true;
+public var isInSubstate:Bool = false;
 
-		return false;
-	}
+@:noCompletion
+public var requestedInstance(get, never):Dynamic; 
+@:noCompletion
+public var requestedHitbox(get, never):MobileInputDevice;
 
-	private function mobilePadJustPressed(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedInstance.virtualPad != null)
-			if (requestedInstance.virtualPad.anyJustPressed(keys) == true)
-				return true;
+public function mobilePadPressed(keys:Array<FlxMobileInputID>)      return checkInput(requestedInstance?.virtualPad, keys, "pressed");
+public function mobilePadJustPressed(keys:Array<FlxMobileInputID>)  return checkInput(requestedInstance?.virtualPad, keys, "justPressed");
+public function mobilePadJustReleased(keys:Array<FlxMobileInputID>) return checkInput(requestedInstance?.virtualPad, keys, "justReleased");
 
-		return false;
-	}
+public function hitboxPressed(keys:Array<FlxMobileInputID>)         return checkInput(requestedHitbox, keys, "pressed");
+public function hitboxJustPressed(keys:Array<FlxMobileInputID>)     return checkInput(requestedHitbox, keys, "justPressed");
+public function hitboxJustReleased(keys:Array<FlxMobileInputID>)    return checkInput(requestedHitbox, keys, "justReleased");
 
-	private function mobilePadJustReleased(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedInstance.virtualPad != null)
-			if (requestedInstance.virtualPad.anyJustReleased(keys) == true)
-				return true;
+/**
+ * Check the input
+ */
+private function checkInput(device:MobileInputDevice, keys:Array<FlxMobileInputID>, type:String):Bool
+{
+    if (keys == null || device == null) return false;
 
-		return false;
-	}
+    return switch(type) {
+        case "pressed":      device.anyPressed(keys);
+        case "justPressed":  device.anyJustPressed(keys);
+        case "justReleased": device.anyJustReleased(keys);
+        default: false;
+    };
+}
 
-	private function hitboxPressed(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedHitbox != null)
-			if (requestedHitbox.anyPressed(keys) == true)
-				return true;
+@:noCompletion
+private function get_requestedInstance():Dynamic
+{
+    return isInSubstate ? MusicBeatSubstate.instance : MusicBeatState.getState();
+}
 
-		return false;
-	}
-
-	private function hitboxJustPressed(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedHitbox != null)
-			if (requestedHitbox.anyJustPressed(keys) == true)
-				return true;
-
-		return false;
-	}
-
-	private function hitboxJustReleased(keys:Array<FlxMobileInputID>):Bool
-	{
-		if (keys != null && requestedHitbox != null)
-			if (requestedHitbox.anyJustReleased(keys) == true)
-				return true;
-
-		return false;
-	}
-
-	@:noCompletion
-	private function get_requestedInstance():Dynamic
-	{
-		if (isInSubstate)
-			return MusicBeatSubstate.instance;
-		else
-			return MusicBeatState.getState();
-	}
-
-	@:noCompletion
-	private function get_requestedHitbox():Dynamic
-	{
-		return MusicBeatState.instance.mobileHitbox;
-	}
+@:noCompletion
+private function get_requestedHitbox():MobileInputDevice
+{
+    return MusicBeatState.instance.mobileHitbox;
+}
 
 	// IGNORE THESE
 	public static var instance:Controls;

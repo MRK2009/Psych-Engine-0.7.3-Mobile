@@ -43,6 +43,12 @@ class MusicBeatState extends FlxUIState
 			removeVirtualPad();
 
 		virtualPad = new MobileVirtualPad(DPad, Action);
+		
+		vpadCam = new FlxCamera();
+		FlxG.cameras.add(vpadCam, false);
+		vpadCam.bgColor.alpha = 0;
+		
+		virtualPad.cameras = [vpadCam];
 		add(virtualPad);
 	}
 
@@ -69,17 +75,6 @@ class MusicBeatState extends FlxUIState
 	{
 		if (mobileHitbox != null)
 			remove(mobileHitbox);
-	}
-
-	public function addVirtualPadCamera()
-	{
-		if (virtualPad != null)
-		{
-			vpadCam = new FlxCamera();
-			FlxG.cameras.add(vpadCam, false);
-			vpadCam.bgColor.alpha = 0;
-			virtualPad.cameras = [vpadCam];
-		}
 	}
 
 	override function destroy()

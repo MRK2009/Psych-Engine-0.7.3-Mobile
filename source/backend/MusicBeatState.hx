@@ -6,7 +6,7 @@ import flixel.FlxState;
 import backend.PsychCamera;
 #if mobile
 import mobile.controls.MobileHitbox;
-import mobile.controls.MobileVirtualPad;
+//import mobile.controls.MobileVirtualPad;
 import flixel.util.FlxDestroyUtil;
 import flixel.FlxCamera;
 #end

@@ -166,8 +166,6 @@ class Controls
 		return false;
 	}
 
-public var isInSubstate:Bool = false;
-
 @:noCompletion
 public var requestedInstance(get, never):Dynamic; 
 @:noCompletion
@@ -199,7 +197,7 @@ private function checkInput(device:MobileInputDevice, keys:Array<FlxMobileInputI
 @:noCompletion
 private function get_requestedInstance():Dynamic
 {
-    return isInSubstate ? MusicBeatSubstate.instance : MusicBeatState.getState();
+    return MusicBeatState.getState();
 }
 
 @:noCompletion

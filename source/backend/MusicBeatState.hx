@@ -56,11 +56,11 @@ class MusicBeatState extends FlxUIState
 	{
 		mobileHitbox = new MobileHitbox();
 
-		camControls = new FlxCamera();
+		/*camControls = new FlxCamera();
 		camControls.bgColor.alpha = 0;
 		FlxG.cameras.add(camControls, false);
 
-		mobileHitbox.cameras = [camControls];
+		mobileHitbox.cameras = [camControls];*/
 		mobileHitbox.visible = false;
 		add(mobileHitbox);
 	}

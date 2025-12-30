@@ -112,12 +112,14 @@ class MobileVirtualPad extends FlxMobileInputManager {
                 // Nothing.. like... absolutely nothing
     }
   
-       for (button in Reflect.fields(this)) {
+    for (button in Reflect.fields(this))
+		{
 			if (Std.isOfType(Reflect.field(this, button), FlxButton))
 				Reflect.setProperty(Reflect.getProperty(this, button), 'IDs', storedButtonsIDs.get(button));
-       }
-     updateTrackedButtons();
-}
+		}
+		scrollFactor.set();
+		updateTrackedButtons();
+	}
 
     /**
 	 * For those with a bad phone-

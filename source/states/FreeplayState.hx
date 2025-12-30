@@ -170,7 +170,6 @@ class FreeplayState extends MusicBeatState
 
 		#if mobile
 		addVirtualPad(LEFT_FULL, A_B);
-		addVirtualPadCamera();
 		#end
 		
 		player = new MusicPlayer(this);

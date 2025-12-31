@@ -85,13 +85,11 @@ class MusicBeatState extends FlxUIState
 		if (virtualPad != null)
 		{
 			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-			virtualPad = null;
 		}
 
 		if (mobileControls != null)
 		{
 			mobileControls = FlxDestroyUtil.destroy(mobileControls);
-			mobileControls = null;
 		}
 	}
 

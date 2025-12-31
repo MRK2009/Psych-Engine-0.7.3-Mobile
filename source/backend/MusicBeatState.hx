@@ -4,7 +4,6 @@ import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import backend.PsychCamera;
-import flixel.FlxCamera;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
 import flixel.util.FlxDestroyUtil;

@@ -572,7 +572,7 @@ class PlayState extends MusicBeatState
 		comboGroup.cameras = [camHUD];
 
 		#if mobile
-		addMobileHitbox();
+		addMobileHitbox(false);
 		mobileHitbox.visible = false;
 		#end
 

@@ -21,6 +21,10 @@ import sys.io.*;
 import js.html.*;
 #end
 
+#if mobile
+import mobile.backend.StorageSystem;
+#end
+
 import backend.Paths;
 import backend.Controls;
 import backend.CoolUtil;
@@ -32,10 +36,6 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
-
-#if mobile
-import mobile.backend.StorageSystem;
-#end
 
 import objects.Alphabet;
 import objects.BGSprite;

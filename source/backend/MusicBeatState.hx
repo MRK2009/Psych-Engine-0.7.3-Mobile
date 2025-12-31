@@ -4,17 +4,9 @@ import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import backend.PsychCamera;
-#if mobile
-import mobile.controls.MobileHitbox;
-import mobile.controls.MobileVirtualPad;
-import flixel.util.FlxDestroyUtil;
-import flixel.FlxCamera;
-#end
 
 class MusicBeatState extends FlxUIState
 {
-    public static var instance:MusicBeatState;
-    
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
 
@@ -28,68 +20,10 @@ class MusicBeatState extends FlxUIState
 	{
 		return Controls.instance;
 	}
-	
-	#if mobile
-	public var mobileHitbox:MobileHitbox;
-	public var virtualPad:MobileVirtualPad;
-
-	//public var vpadCam:FlxCamera;
-	public var camControls:FlxCamera;
-
-	
-    public function addVirtualPad(DPad:MobileDPadMode, Action:MobileActionMode)
-	{
-		if (virtualPad != null)
-			removeVirtualPad();
-
-		virtualPad = new MobileVirtualPad(DPad, Action);
-		add(virtualPad);
-	}
-
-	public function removeVirtualPad()
-	{
-		if (virtualPad != null)
-			remove(virtualPad);
-	}
-
-	public function addMobileHitbox(DefaultDrawTarget:Bool = false)
-	{
-		mobileHitbox = new MobileHitbox();
-
-		camControls = new FlxCamera();
-		camControls.bgColor.alpha = 0;
-		FlxG.cameras.add(camControls, DefaultDrawTarget);
-
-		mobileHitbox.cameras = [camControls];
-		add(mobileHitbox);
-	}
-
-	public function removeMobileHitbox()
-	{
-		if (mobileHitbox != null)
-			remove(mobileHitbox);
-	}
-
-	override function destroy()
-	{
-		super.destroy();
-
-		if (virtualPad != null)
-		{
-			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-		}
-
-		if (mobileHitbox != null)
-		{
-			mobileHitbox = FlxDestroyUtil.destroy(mobileHitbox);
-		}
-	}
-	#end
 
 	var _psychCameraInitialized:Bool = false;
 
 	override function create() {
-	    instance = this;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		#if MODS_ALLOWED Mods.updatedOnState = false; #end
 

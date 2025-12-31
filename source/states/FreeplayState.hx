@@ -171,10 +171,6 @@ class FreeplayState extends MusicBeatState
 		player = new MusicPlayer(this);
 		add(player);
 		
-		#if mobile
-        addVirtualPad(LEFT_FULL, A_B);
-        #end
-		
 		changeSelection();
 		updateTexts();
 		super.create();

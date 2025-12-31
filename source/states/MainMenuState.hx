@@ -108,10 +108,6 @@ class MainMenuState extends MusicBeatState
 		#end
 		#end
 
-        #if mobile
-        addVirtualPad(UP_DOWN, A_B);
-        #end
-		
 		super.create();
 
 		FlxG.camera.follow(camFollow, null, 9);

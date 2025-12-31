@@ -2,64 +2,58 @@
   "dependencies": [
     {
       "name": "lime",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/MaysLastPlays-Stuff/lime-h"
+      "type": "haxelib",
+      "version": null
     },
     {
       "name": "openfl",
       "type": "haxelib",
-      "version": "9.3.3"
+      "version": null
     },
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": "5.5.0"
+      "version": null
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": "3.0.2"
+      "version": null
     },
     {
       "name": "flixel-tools",
       "type": "haxelib",
-      "version": "1.5.1"
+      "version": null
     },
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": "2.5.0"
+      "version": null
     },
     {
       "name": "hxcpp",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/MaysLastPlays-Stuff/hxcpp-h"
+      "type": "haxelib",
+      "version": null
     },
     {
       "name": "hxCodec",
       "type": "haxelib",
-      "version": "3.0.0"
+      "version": null
     },
     {
       "name": "SScript",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/DeveloperPorting-Stuff/SScript"
+      "type": "haxelib",
+      "version": null
     },
     {
       "name": "hxcpp-debug-server",
       "type": "haxelib",
-      "version": "1.2.4"
+      "version": null
     },
     {
       "name": "tjson",
       "type": "haxelib",
-      "version": "1.4.0"
+      "version": null
     },
     {
       "name": "hxdiscord_rpc",
@@ -79,15 +73,8 @@
       "name": "linc_luajit",
       "type": "git",
       "dir": null,
-      "ref": "main",
-      "url": "https://github.com/DeveloperPorting-Stuff/linc_luajit"
-    },
-    {
-      "name": "extension-androidtools",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/MAJigsaw77/extension-androidtools"
+      "ref": "master",
+      "url": "https://github.com/superpowers04/linc_luajit"
     }
   ]
 }

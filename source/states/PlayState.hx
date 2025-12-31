@@ -571,11 +571,6 @@ class PlayState extends MusicBeatState
 		noteGroup.cameras = [camHUD];
 		comboGroup.cameras = [camHUD];
 
-		#if mobile
-		addMobileHitbox(false);
-		mobileHitbox.visible = false;
-		#end
-
 		startingSong = true;
 
 		#if LUA_ALLOWED
@@ -949,10 +944,6 @@ class PlayState extends MusicBeatState
 			callOnScripts('onStartCountdown');
 			return false;
 		}
-
-		#if mobile
-		mobileHitbox.visible = true;
-		#end
 
 		seenCutscene = true;
 		inCutscene = false;
@@ -1659,7 +1650,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnScripts('onPause', null, true);
 			if(ret != LuaUtils.Function_Stop) {
@@ -2313,10 +2304,6 @@ class PlayState extends MusicBeatState
 				return false;
 			}
 		}
-
-		#if mobile
-		mobileHitbox.visible = false;
-		#end
 
 		timeBar.visible = false;
 		timeTxt.visible = false;

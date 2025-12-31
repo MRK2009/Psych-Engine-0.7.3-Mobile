@@ -1,20 +1,20 @@
-package mobile.input;
+package mobile.flixel.input;
 
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
-import mobile.input.FlxMobileInputID;
-import mobile.MobileButton;
+import mobile.flixel.input.FlxMobileInputID;
+import mobile.flixel.FlxButton;
 import haxe.ds.Map;
 
 /**
  * A FlxButton group with functions for input handling
  * @author Karim Akra
  */
-class FlxMobileInputManager extends FlxTypedSpriteGroup<MobileButton>
+class FlxMobileInputManager extends FlxTypedSpriteGroup<FlxButton>
 {
 	/**
 	 * A map to keep track of all the buttons using it's ID
 	 */
-	public var trackedButtons:Map<FlxMobileInputID, MobileButton> = new Map<FlxMobileInputID, MobileButton>();
+	public var trackedButtons:Map<FlxMobileInputID, FlxButton> = new Map<FlxMobileInputID, FlxButton>();
 
 	public function new()
 	{
@@ -146,7 +146,7 @@ class FlxMobileInputManager extends FlxTypedSpriteGroup<MobileButton>
 	public function updateTrackedButtons()
 	{
 		trackedButtons.clear();
-		forEachExists(function(button:MobileButton)
+		forEachExists(function(button:FlxButton)
 		{
 			if (button.IDs != null)
 			{

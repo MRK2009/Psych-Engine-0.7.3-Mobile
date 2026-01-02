@@ -14,8 +14,10 @@
     },
     {
       "name": "flixel",
-      "type": "haxelib",
-      "version": "4.11.0"
+      "type": "gif",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/NovaFlare-Engine-haxelib/flixel-5.9.0"
     },
     {
       "name": "flixel-addons",

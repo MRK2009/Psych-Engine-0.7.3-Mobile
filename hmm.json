@@ -14,15 +14,13 @@
     },
     {
       "name": "flixel",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/NovaFlare-Engine-haxelib/flixel-5.9.0"
+      "type": "haxelib",
+      "version": "5.5.0"
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": "2.11.0"
+      "version": "3.2.1"
     },
     {
       "name": "flixel-tools",
@@ -32,7 +30,7 @@
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": "2.3.3"
+      "version": "2.5.0"
     },
     {
       "name": "hxcpp",

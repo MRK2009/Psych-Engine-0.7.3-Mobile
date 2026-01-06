@@ -574,8 +574,8 @@ class PlayState extends MusicBeatState
 		startingSong = true;
 		
 		#if mobile
-		    addMobileControls(false);
-			mobileControls.visible = false;
+		    mobileManager.addMobileControls(false);
+			mobileManager.hitbox.visible = false;
 		#end
 		
 
@@ -947,7 +947,7 @@ class PlayState extends MusicBeatState
 	public function startCountdown()
 	{
 	    #if mobile
-			mobileControls.visible = true;
+			mobileManager.hitbox.visible = true;
 		#end
 		if(startedCountdown) {
 			callOnScripts('onStartCountdown');
@@ -2315,7 +2315,7 @@ class PlayState extends MusicBeatState
 		}
 		
 		#if mobile
-			mobileControls.visible = false;
+			mobileManager.hitbox.visible = false;
 		#end
 
 		timeBar.visible = false;

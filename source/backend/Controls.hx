@@ -202,9 +202,9 @@ class Controls
 	}
 
 	@:noCompletion
-	private function get_requestedHitbox():Dynamic
+	private function get_requestedHitbox():MobileHitbox
 	{
-    	return requestedHitbox.mobileManager.hitbox;
+    	return requestedInstance.mobileManager.hitbox;
 	}
 
 	// IGNORE THESE

@@ -8,6 +8,7 @@ import extension.androidtools.Settings;
 import extension.androidtools.Permissions;
 import extension.androidtools.os.Build.VERSION;
 import extension.androidtools.os.Build.VERSION_CODES;
+import extension.androidtools.Tools;
 #end
 import lime.app.Application;
 import haxe.io.Path;

@@ -198,13 +198,13 @@ class Controls
 	@:noCompletion
 	private function get_requestedInstance():Dynamic
 	{
-    	return MusicBeatState.getState();
+    	return MusicBeatState.instance;
 	}
 
 	@:noCompletion
 	private function get_requestedHitbox():MobileHitbox
 	{
-    	return requestedInstance.hitbox;
+    	return MusicBeatState.instance.hitbox;
 	}
 
 	// IGNORE THESE

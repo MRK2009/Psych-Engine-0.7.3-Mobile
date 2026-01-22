@@ -7,6 +7,8 @@ import flixel.input.keyboard.FlxKey;
 #if mobile
 import mobile.flixel.input.FlxMobileInputID;
 #end
+import backend.MusicBeatState;
+import backend.MusicBeatSubstate;
 
 class Controls
 {

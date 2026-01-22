@@ -46,6 +46,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function create()
 	{
 		instance = this;
+		
+		controls.isInSubstate = true;
 
 		Conductor.songPosition = 0;
 
@@ -67,6 +69,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		
 		PlayState.instance.setOnScripts('inGameOver', true);
 		PlayState.instance.callOnScripts('onGameOverStart', []);
+		
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		#end
 
 		super.create();
 	}

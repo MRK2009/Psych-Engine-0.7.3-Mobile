@@ -39,6 +39,10 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+	    	['Developer Porting Team'],
+			['Cream.BR',		'creambr',		'Lead programmer for Port Mobile\n(My name is also StarNova)',		'https://youtube.com/@creambroficial', 		'EFD0A4'],
+			['FNF BR',				'fnfbr',			'Programmer for Port Mobile',						 'https://youtube.com/@fnf-br',		'00BBFF'],
+			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer and Head of Psych Engine',					 'https://ko-fi.com/shadowmario',		'444444'],
 			['Riveren',				'riveren',			'Main Artist/Animator of Psych Engine',						 'https://twitter.com/riverennn',		'14967B'],
@@ -126,6 +130,9 @@ class CreditsState extends MusicBeatState
 
 		bg.color = CoolUtil.colorFromString(creditsStuff[curSelected][4]);
 		intendedColor = bg.color;
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 		changeSelection();
 		super.create();
 	}

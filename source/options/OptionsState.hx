@@ -59,6 +59,10 @@ class OptionsState extends MusicBeatState
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
+		
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 
 		changeSelection();
 		ClientPrefs.saveSettings();
@@ -71,6 +75,12 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Options Menu", null);
+		#end
+		controls.isInSubstate = false;
+
+		#if mobile
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
 		#end
 	}
 

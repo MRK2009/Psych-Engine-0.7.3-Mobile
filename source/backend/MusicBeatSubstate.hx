@@ -1,6 +1,11 @@
 package backend;
 
 import flixel.FlxSubState;
+#if mobile
+import flixel.group.FlxGroup;
+import flixel.util.FlxDestroyUtil;
+import mobile.controls.MobileVirtualPad;
+#end
 
 class MusicBeatSubstate extends FlxSubState
 {
@@ -26,6 +31,50 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return Controls.instance;
+		
+	#if mobile
+	public var virtualPad:MobileVirtualPad;
+	public var virtualPadCam:FlxCamera;
+
+    public function addVirtualPad(DPad:MobileDPadMode, Action:MobileActionMode)
+	{
+		virtualPad = new MobileVirtualPad(DPad, Action);
+		add(virtualPad);
+	}
+	
+	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false)
+	{
+		if (virtualPad != null)
+		{
+			virtualPadCam = new FlxCamera();
+			virtualPadCam.bgColor.alpha = 0;
+			FlxG.cameras.add(virtualPadCam, DefaultDrawTarget);
+			
+			virtualPad.cameras = [virtualPadCam];
+		}
+	}
+
+	public function removeVirtualPad()
+	{
+		if (virtualPad != null)
+		{
+			remove(virtualPad);
+			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+		}
+
+		if(virtualPadCam != null)
+		{
+			FlxG.cameras.remove(virtualPadCam);
+			virtualPadCam = FlxDestroyUtil.destroy(virtualPadCam);
+		}
+	}
+
+	override function destroy()
+    {
+        super.destroy();
+		removeVirtualPad();
+	}
+	#end
 
 	override function update(elapsed:Float)
 	{

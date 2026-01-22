@@ -292,6 +292,11 @@ class ModsMenuState extends MusicBeatState
 		add(bgList);
 		add(modsGroup);
 		_lastControllerMode = controls.controllerMode;
+		
+		#if mobile
+		addVirtualPad(UP_DOWN, B);
+		virtualPad.y -= 215;
+		#end
 
 		changeSelectedMod();
 		super.create();

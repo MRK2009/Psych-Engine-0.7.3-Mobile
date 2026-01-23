@@ -105,30 +105,29 @@ class StorageSystem
 
 	public static function copyAssetsToStorage(sources:Array<String>, targetPath:String = null):Void
 	{
-		#if mobile
+		#if android
 		try
 		{
 			var baseDest = (targetPath == null) ? getDirectory() : targetPath;
 
 			if (baseDest == null)
 			{
-				trace("Erro: Diretório de destino é nulo!");
+				trace("ERRO: Diretório de destino é nulo!");
 				return;
 			}
 
 			var assetList:Array<String> = Assets.list();
 			var filesCopied:Int = 0;
 
+			trace('INFO: Total de assets encontrados no pacote: ${assetList.length}');
+
 			for (source in sources)
 			{
 				var filter = Path.normalize(source);
-
 				if (StringTools.endsWith(filter, "/"))
-				{
 					filter = filter.substring(0, filter.length - 1);
-				}
 
-				trace('Sincronizando origem: $filter');
+				trace('--- Sincronizando origem: $filter ---');
 
 				for (assetPath in assetList)
 				{
@@ -140,10 +139,10 @@ class StorageSystem
 						if (assetPath == filter || assetPath == filter + "/")
 							continue;
 
+						trace('Processando: $assetPath -> Destino: $fullTargetPath');
+
 						if (!FileSystem.exists(directory))
-						{
 							FileSystem.createDirectory(directory);
-						}
 
 						if (!FileSystem.exists(fullTargetPath))
 						{
@@ -155,21 +154,30 @@ class StorageSystem
 								{
 									File.saveBytes(fullTargetPath, data);
 									filesCopied++;
+									trace('SUCESSO: $assetPath copiado.');
+								}
+								else
+								{
+									trace('AVISO: Bytes nulos para o asset: $assetPath');
 								}
 							}
 							catch (e:Dynamic)
 							{
-								continue;
+								trace('ERRO ao copiar $assetPath: $e');
 							}
+						}
+						else
+						{
+							trace('PULADO: Arquivo já existe no destino: $assetPath');
 						}
 					}
 				}
 			}
-			trace('Operação finalizada. Arquivos novos: $filesCopied');
+			trace('Operação finalizada. Total de novos arquivos: $filesCopied');
 		}
 		catch (e:Dynamic)
 		{
-			trace('Erro fatal na sincronização: $e');
+			trace('ERRO FATAL na sincronização: $e');
 		}
 		#end
 	}

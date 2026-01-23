@@ -1,5 +1,6 @@
 package mobile.backend;
 
+import openfl.utils.Assets;
 import sys.FileSystem;
 import sys.io.File;
 #if android
@@ -12,9 +13,8 @@ import extension.androidtools.Tools;
 #end
 import lime.app.Application;
 import haxe.io.Path;
-import openfl.utils.Assets;
 import haxe.io.Bytes;
-
+import openfl.utils.ByteArray;
 using StringTools;
 
 /** 
@@ -102,83 +102,68 @@ class StorageSystem
 		trace("Permissions request not required or not implemented for this platform.");
 		#end
 	}
+	public static function copyAssetsFromApk(sources:Array<String>, targetPath:String = null):Void
+{
+    #if android
+    try
+    {
+        var baseDest = (targetPath == null) ? getDirectory() : targetPath;
+        if (baseDest == null) {
+            trace("ERRO: Diretório de destino é nulo!");
+            return;
+        }
+        var assetList:Array<String> = lime.utils.Assets.list();
+        var filesCopied:Int = 0;
 
-	public static function copyAssetsToStorage(sources:Array<String>, targetPath:String = null):Void
-	{
-		#if android
-		try
-		{
-			var baseDest = (targetPath == null) ? getDirectory() : targetPath;
+        trace('INFO: Verificando ${assetList.length} assets no pacote...');
 
-			if (baseDest == null)
-			{
-				trace("ERRO: Diretório de destino é nulo!");
-				return;
-			}
+        for (source in sources)
+        {
+            var filter = haxe.io.Path.normalize(source);
+            
+            trace('--- Sincronizando: $filter ---');
 
-			var assetList:Array<String> = Assets.list();
-			var filesCopied:Int = 0;
+            for (assetPath in assetList)
+            {
+                if (StringTools.startsWith(assetPath, filter))
+                {
+                    var fullTargetPath = haxe.io.Path.join([baseDest, assetPath]);
+                    var directory = haxe.io.Path.directory(fullTargetPath);
 
-			trace('INFO: Total de assets encontrados no pacote: ${assetList.length}');
+                    if (assetPath == filter || assetPath == filter + "/") continue;
+                    
+                    if (StringTools.endsWith(assetPath, ".json") && assetPath.contains("manifest")) continue;
 
-			for (source in sources)
-			{
-				var filter = Path.normalize(source);
-				if (StringTools.endsWith(filter, "/"))
-					filter = filter.substring(0, filter.length - 1);
+                    if (!FileSystem.exists(directory))
+                        FileSystem.createDirectory(directory);
 
-				trace('--- Sincronizando origem: $filter ---');
+                    if (!FileSystem.exists(fullTargetPath))
+                    {
+                        try
+                        {
+                            var data = lime.utils.Assets.getBytes(assetPath);
 
-				for (assetPath in assetList)
-				{
-					if (StringTools.startsWith(assetPath, filter) && !StringTools.startsWith(assetPath, "manifest"))
-					{
-						var fullTargetPath = Path.normalize(Path.join([baseDest, assetPath]));
-						var directory = Path.directory(fullTargetPath);
-
-						if (assetPath == filter || assetPath == filter + "/")
-							continue;
-
-						trace('Processando: $assetPath -> Destino: $fullTargetPath');
-
-						if (!FileSystem.exists(directory))
-							FileSystem.createDirectory(directory);
-
-						if (!FileSystem.exists(fullTargetPath))
-						{
-							try
-							{
-								var data:Bytes = Assets.getBytes(assetPath);
-
-								if (data != null)
-								{
-									File.saveBytes(fullTargetPath, data);
-									filesCopied++;
-									trace('SUCESSO: $assetPath copiado.');
-								}
-								else
-								{
-									trace('AVISO: Bytes nulos para o asset: $assetPath');
-								}
-							}
-							catch (e:Dynamic)
-							{
-								trace('ERRO ao copiar $assetPath: $e');
-							}
-						}
-						else
-						{
-							trace('PULADO: Arquivo já existe no destino: $assetPath');
-						}
-					}
-				}
-			}
-			trace('Operação finalizada. Total de novos arquivos: $filesCopied');
-		}
-		catch (e:Dynamic)
-		{
-			trace('ERRO FATAL na sincronização: $e');
-		}
-		#end
-	}
+                            if (data != null)
+                            {
+                                File.saveBytes(fullTargetPath, data);
+                                filesCopied++;
+                                trace('COPIADO: $assetPath');
+                            }
+                        }
+                        catch (e:Dynamic)
+                        {
+                            trace('FALHA ao ler bytes de $assetPath: $e');
+                        }
+                    }
+                }
+            }
+        }
+        trace('Sincronização concluída. Arquivos novos: $filesCopied');
+    }
+    catch (e:Dynamic)
+    {
+        trace('ERRO CRÍTICO: $e');
+    }
+    #end
+}
 }

@@ -61,7 +61,7 @@ class Main extends Sprite
 		StorageSystem.getPermissions();
 		Sys.setCwd(StorageSystem.getStorageDirectory());
 		
-		StorageSystem.copyAssetsToStorage(['assets', 'mods']);
+		StorageSystem.copyAssetsFromApk(['assets', 'mods']);
 		#end
 
 		if (stage != null)

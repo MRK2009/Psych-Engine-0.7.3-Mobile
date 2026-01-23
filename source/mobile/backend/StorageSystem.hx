@@ -23,14 +23,18 @@ using StringTools;
 **/
 class StorageSystem
 {
-	public static inline function getStorageDirectory():String
-		return #if android Path.addTrailingSlash(Environment.getExternalStorageDirectory() + '/.' +
-			Application.current.meta.get('file')) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
+	private static var folderName(get, never):String;
+    private static function get_folderName():String {
+        return Application.current.meta.get('file');
+    }
+
+    public static inline function getStorageDirectory():String
+	  	return #if android Path.addTrailingSlash(Environment.getExternalStorageDirectory() + '/.' + folderName) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
 
 	public static function getDirectory():String
 	{
 		#if android
-		return Environment.getExternalStorageDirectory() + '/.' + Application.current.meta.get('file') + '/';
+		return Environment.getExternalStorageDirectory() + '/.' + folderName + '/';
 		#elseif ios
 		return lime.system.System.documentsDirectory;
 		#else
@@ -64,9 +68,9 @@ class StorageSystem
             }
 		}
 
-        if (!Permissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')) {
+        /*if (!Permissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')) {
             Tools.showAlertDialog("Requires permissions", "Please allow the necessary permissions to play.\nPress OK & let's see what happens", {name: "OK", func: null}, null);
-		}
+		}*/
         #else
         trace("Permissions request not required or not implemented for this platform.");
         #end

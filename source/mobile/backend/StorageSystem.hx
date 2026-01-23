@@ -69,8 +69,18 @@ class StorageSystem
             }
 		}
 
-        if (!Permissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')) {
-            Tools.showAlertDialog("Requires permissions", "Please allow the necessary permissions to play.\nPress OK & let's see what happens", {name: "OK", func: null}, null);
+        try
+		{
+			if (!FileSystem.exists(getDirectory())) {
+				FileSystem.createDirectory(getDirectory());
+				Tools.showAlertDialog("Requirements", "Please copy the Assets and Mods folder to " + getDirectory() + " to be able to play.", {name: "OK", func: null}, null);
+			} else {
+		 	   Tools.showAlertDialog("Requirements", "Please copy the Assets and Mods folder to " + getDirectory() + " to be able to play.", {name: "OK", func: null}, null);
+			}
+		}
+		catch (e:Dynamic)
+		{
+			Tools.showAlertDialog("Requires permissions", "Please allow the necessary permissions to play.\nPress OK & let's see what happens", {name: "OK", func: null}, null);
 		}
         #else
         trace("Permissions request not required or not implemented for this platform.");

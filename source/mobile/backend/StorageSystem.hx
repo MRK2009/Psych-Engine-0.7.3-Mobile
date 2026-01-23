@@ -69,7 +69,7 @@ class StorageSystem
             }
 		}
 
-        if (!Permissions.getGrantedPermissions().contains(['android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE'])) {
+        if (!Permissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')) {
             Tools.showAlertDialog("Requires permissions", "Please allow the necessary permissions to play.\nPress OK & let's see what happens", {name: "OK", func: null}, null);
 		}
         #else

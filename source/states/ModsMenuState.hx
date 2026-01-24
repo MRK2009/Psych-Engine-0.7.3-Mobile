@@ -58,11 +58,6 @@ class ModsMenuState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		persistentUpdate = false;
-		
-		#if mobile
-		if (controls.isInSubstate)
-            controls.isInSubstate = false;
-        #end
 
 		modsList = Mods.parseList();
 		Mods.currentModDirectory = modsList.all[0] != null ? modsList.all[0] : '';
@@ -317,6 +312,11 @@ class ModsMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+	    #if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        #end
+        
 		if(controls.BACK && hoveringOnMods)
 		{
 			if(colorTween != null) {
@@ -372,7 +372,7 @@ class ModsMenuState extends MusicBeatState
 			var lastMode = hoveringOnMods;
 			if(modsList.all.length > 1)
 			{
-				if(FlxG.mouse.justPressed)
+				/*if(FlxG.mouse.justPressed)
 				{
 					for (i in centerMod-2...centerMod+3)
 					{
@@ -393,7 +393,7 @@ class ModsMenuState extends MusicBeatState
 					var button = getButton();
 					button.ignoreCheck = button.onFocus = false;
 					gottaClickAgain = false;
-				}
+				}*/
 
 				if(hoveringOnMods)
 				{
@@ -417,7 +417,7 @@ class ModsMenuState extends MusicBeatState
 						holdTime += elapsed;
 						if(holdTime > 0.5 && Math.floor(lastHoldTime * 8) != Math.floor(holdTime * 8)) changeSelectedMod(shiftMult * (controls.UI_UP ? -1 : 1));
 					}
-					else if(FlxG.mouse.pressed && !gottaClickAgain)
+					/*else if(FlxG.mouse.pressed && !gottaClickAgain)
 					{
 						var curMod:ModItem = modsGroup.members[curSelectedMod];
 						if(curMod != null)
@@ -464,7 +464,7 @@ class ModsMenuState extends MusicBeatState
 							}
 						}
 						
-					}
+					}*/
 					else if(FlxG.mouse.justReleased && holdingMod)
 					{
 						holdingMod = false;

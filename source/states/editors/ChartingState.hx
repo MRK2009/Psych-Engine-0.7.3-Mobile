@@ -377,6 +377,9 @@ class ChartingState extends MusicBeatState
 		add(zoomTxt);
 
 		updateGrid();
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B);
+		#end
 		super.create();
 	}
 
@@ -1712,7 +1715,7 @@ class ChartingState extends MusicBeatState
 			strumLineNotes.members[i].y = strumLine.y;
 		}
 
-		FlxG.mouse.visible = true;//cause reasons. trust me
+		FlxG.mouse.visible = true; //cause reasons. trust me
 		camPos.y = strumLine.y;
 		if(!disableAutoScrolling.checked) {
 			if (Math.ceil(strumLine.y) >= gridBG.height)
@@ -1843,7 +1846,7 @@ class ChartingState extends MusicBeatState
 				playtestingOnComplete = FlxG.sound.music.onComplete;
 				openSubState(new states.editors.EditorPlayState(playbackSpeed));
 			}
-			else if (FlxG.keys.justPressed.ENTER)
+			else if (FlxG.keys.justPressed.ENTER || virtualPad.buttonA.justPressed)
 			{
 				autosaveSong();
 				FlxG.mouse.visible = false;
@@ -1869,7 +1872,7 @@ class ChartingState extends MusicBeatState
 			}
 
 
-			if (FlxG.keys.justPressed.BACKSPACE) {
+			if (FlxG.keys.justPressed.BACKSPACE || virtualPad.buttonB.justPressed) {
 				// Protect against lost data when quickly leaving the chart editor.
 				autosaveSong();
 				PlayState.chartingMode = false;

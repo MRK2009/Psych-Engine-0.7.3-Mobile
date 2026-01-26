@@ -1958,7 +1958,7 @@ class ChartingState extends MusicBeatState
 
 			//ARROW VORTEX SHIT NO DEADASS
 
-			if ((FlxG.keys.pressed.W || FlxG.keys.pressed.S) || (virtualPad.buttonUp.justPressed || virtualPad.buttonDown.justPressed))
+			if ((FlxG.keys.pressed.W || FlxG.keys.pressed.S) || (virtualPad.buttonUp.pressed || virtualPad.buttonDown.pressed))
 			{
 				FlxG.sound.music.pause();
 
@@ -2786,7 +2786,7 @@ class ChartingState extends MusicBeatState
 				//trace('test: ' + i[0], 'startThing: ' + startThing, 'endThing: ' + endThing);
 			}
 		}
-
+		
 		// NEXT SECTION
 		var beats:Float = getSectionBeats(1);
 		if(curSec < _song.notes.length-1) {

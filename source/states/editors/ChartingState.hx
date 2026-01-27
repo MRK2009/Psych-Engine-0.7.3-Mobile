@@ -323,7 +323,7 @@ class ChartingState extends MusicBeatState
 		UI_box.scrollFactor.set();
 
 		text =
-		\nLeft/Right - Go to the previous/next section
+		"\nLeft/Right - Go to the previous/next section
 		\nUp/Down - Change Conductor's Strum Time with Snapping" +
 		"\nHold Y to move 4x faster
 		\nZ/D - Zoom in/out

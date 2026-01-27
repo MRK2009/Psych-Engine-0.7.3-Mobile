@@ -1824,7 +1824,7 @@ class ChartingState extends MusicBeatState
 
 		if (!blockInput)
 		{
-			if (FlxG.keys.justPressed.ESCAPE)
+			if (FlxG.keys.justPressed.ESCAPE || virtualPad.buttonC.justPressed)
 			{
 				if(FlxG.sound.music != null)
 					FlxG.sound.music.stop();
@@ -1882,15 +1882,15 @@ class ChartingState extends MusicBeatState
 				return;
 			}
 
-			if(FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL) {
+			if(virtualPad.buttonV.justPressed || FlxG.keys.justPressed.Z && FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
 
-			if(FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(virtualPad.buttonZ.justPressed || FlxG.keys.justPressed.Z && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				--curZoom;
 				updateZoom();
 			}
-			if(FlxG.keys.justPressed.X && curZoom < zoomList.length-1) {
+			if(virtualPad.buttonD.justPressed || FlxG.keys.justPressed.X && curZoom < zoomList.length-1) {
 				curZoom++;
 				updateZoom();
 			}
@@ -1911,7 +1911,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.SPACE)
+			if (FlxG.keys.justPressed.SPACE || virtualPad.buttonX.justPressed)
 			{
 				if(vocals != null) vocals.play();
 				if(opponentVocals != null) opponentVocals.play();
@@ -1995,7 +1995,7 @@ class ChartingState extends MusicBeatState
 
 			var style = currentType;
 
-			if (FlxG.keys.pressed.SHIFT){
+			if (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT){
 				style = 3;
 			}
 
@@ -2087,7 +2087,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
-			if (FlxG.keys.pressed.SHIFT)
+			if (virtualPad.buttonY.pressed || FlxG.keys.pressed.SHIFT)
 				shiftThing = 4;
 
 			if (FlxG.keys.justPressed.D || virtualPad.buttonRight.justPressed)

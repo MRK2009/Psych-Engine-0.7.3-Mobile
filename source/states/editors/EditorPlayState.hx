@@ -140,6 +140,11 @@ class EditorPlayState extends MusicBeatSubstate
 		add(tipText);
 		FlxG.mouse.visible = false;
 		
+		#if mobile
+		 addMobileControls(false);
+	     hitbox.visible = true;
+		#end
+		
 		generateSong(PlayState.SONG.song);
 
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
@@ -154,7 +159,7 @@ class EditorPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK || FlxG.keys.justPressed.ESCAPE)
+		if(controls.BACK || FlxG.keys.justPressed.ESCAPE || FlxG.android.justReleased.BACK)
 		{
 			endSong();
 			super.update(elapsed);

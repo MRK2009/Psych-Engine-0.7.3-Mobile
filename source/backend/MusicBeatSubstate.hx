@@ -5,6 +5,7 @@ import flixel.FlxSubState;
 import flixel.group.FlxGroup;
 import flixel.util.FlxDestroyUtil;
 import mobile.controls.MobileVirtualPad;
+import mobile.controls.MobileHitbox;
 #end
 
 class MusicBeatSubstate extends FlxSubState
@@ -35,11 +36,27 @@ class MusicBeatSubstate extends FlxSubState
 	#if mobile
 	public var virtualPad:MobileVirtualPad;
 	public var virtualPadCam:FlxCamera;
+	
+	public var hitbox:MobileHitbox;
+	public var hitboxCam:FlxCamera;
 
     public function addVirtualPad(DPad:MobileDPadMode, Action:MobileActionMode)
 	{
 		virtualPad = new MobileVirtualPad(DPad, Action);
 		add(virtualPad);
+	}
+	
+	public function addMobileControls(DefaultDrawTarget:Bool = false)
+	{
+		hitbox = new MobileHitbox();
+
+		hitboxCam = new FlxCamera();
+		hitboxCam.bgColor.alpha = 0;
+		FlxG.cameras.add(hitboxCam, DefaultDrawTarget);
+
+		hitbox.cameras = [hitboxCam];
+		hitbox.visible = false;
+		add(hitbox);
 	}
 	
 	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false)
@@ -68,11 +85,27 @@ class MusicBeatSubstate extends FlxSubState
 			virtualPadCam = FlxDestroyUtil.destroy(virtualPadCam);
 		}
 	}
+	
+	public function removeMobileControls()
+	{
+		if (hitbox != null)
+		{
+			remove(hitbox);
+			hitbox = FlxDestroyUtil.destroy(hitbox);
+		}
+
+		if(hitboxCam != null)
+		{
+			FlxG.cameras.remove(hitboxCam);
+			hitboxCam = FlxDestroyUtil.destroy(hitboxCam);
+		}
+	}
 
 	override function destroy()
     {
         super.destroy();
 		removeVirtualPad();
+		removeMobileControls();
 	}
 	#end
 

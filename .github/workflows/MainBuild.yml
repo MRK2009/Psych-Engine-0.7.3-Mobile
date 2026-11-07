@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  HAXE_VER: 4.3.7
+  HAXE_VER: 4.3.4
 
 jobs:
   android:
